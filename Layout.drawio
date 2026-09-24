@@ -1,0 +1,97 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Sivu-1" id="wUhQA5xsqaFLAi5tFX08">
+    <mxGraphModel dx="781" dy="544" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b7-8ReS_Auy65thSbs6c-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#292762,var(--ge-dark-color, #121212));" vertex="1" parent="1">
+          <mxGeometry x="110" y="130" width="570" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot; face=&quot;Lucida Console&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Ros2&lt;/span&gt;&lt;br&gt;&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot; face=&quot;Lucida Console&quot;&gt;Website to control a Ros2 robot&lt;/font&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="140" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-10" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="260" y="220" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-11" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="120" y="220" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-14" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400" y="220" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-15" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="540" y="220" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-16" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Motor 1 Speed&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="215" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-17" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Motor 2 Speed&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="215" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-18" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Motor 1 Encoder&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="415" y="215" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-19" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Motor 2&lt;span style=&quot;background-color: transparent;&quot;&gt;&amp;nbsp;Encoder&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="555" y="215" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-20" value="STOP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e51400;fontColor=#ffffff;strokeColor=#B20000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="250" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-21" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-22" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400" y="360" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-23" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-24" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-25" value="PWM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;" vertex="1" parent="1">
+          <mxGeometry x="300" y="300" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-26" value="SPEED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;" vertex="1" parent="1">
+          <mxGeometry x="585" y="300" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-27" value="PID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;" vertex="1" parent="1">
+          <mxGeometry x="300" y="380" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-28" value="CMD_VEL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;" vertex="1" parent="1">
+          <mxGeometry x="585" y="380" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-29" value="Connected to node.js" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=light-dark(#00ff00, #121212);" vertex="1" parent="1">
+          <mxGeometry x="325" y="430" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-30" value="Motor 1 PWM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="290" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-31" value="Motor 2 PWM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="320" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-32" value="Motor 1 SPD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="410" y="290" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-33" value="Motor 2 SPD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="410" y="320" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-34" value="P" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="360" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-35" value="I" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="385" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-36" value="D" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="410" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-37" value="Linear" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="410" y="370" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b7-8ReS_Auy65thSbs6c-38" value="Angular" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;fontColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="410" y="400" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
