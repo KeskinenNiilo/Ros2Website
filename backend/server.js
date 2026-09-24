@@ -35,6 +35,13 @@ const motorData = new ROSLIB.Topic({
   messageType: "motordriver_msgs/msg/MotordriverMessage",
 });
 
+// Battery topic
+const batteryData = new ROSLIB.Topic({
+  ros,
+  name: "/battery_voltage",
+  messageType: "std_msgs/msg/Float32",
+})
+
 const wss = new WebSocketServer({
   port: 3001,
 });
@@ -180,4 +187,36 @@ motorData.subscribe((message) => {
       })
     );
   }
+});
+
+let voltageHistory = [];
+let isCharging = false;
+
+// battery sub log
+batteryData.subscribe((message) => {
+  const currentVoltage = message.data;
+  const now = Date.now();
+
+  voltageHistory.push({voltage: currentVoltage, time: now});
+  voltageHistory = voltageHistory.filter((entry) => now - entry.time <= 10000);
+
+  if (voltageHistory.length > 2) {
+    const oldest = voltageHistory[0];
+    const voltageChange = currentVoltage - oldest.voltage;
+    const timeChangeSeconds = (now - oldest.time) / 1000;
+
+    if (voltageChange / timeChangeSeconds > 0.005) {
+      isCharging = true;
+    } else if (voltageChange / timeChangeSeconds < -0.002) {
+      isCharging = false;
+    }
+  }
+
+  const MIN_VOLTAGE = 10.5;
+  const MAX_VOLTAGE = 12.6;
+
+  let percentage = Math.round(((currentVoltage - MIN_VOLTAGE) / (MAX_VOLTAGE - MIN_VOLTAGE)) * 100);
+  percentage = Math.max(0, Math.min(100, percentage));
+
+  console.log(`Voltage: ${currentVoltage.toFixed(2)}V | Battery: ${percentage}% | Charging: ${isCharging}`);
 });
