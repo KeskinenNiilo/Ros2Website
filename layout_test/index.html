@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Ros2</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="headerdiv">
+            <div id="headertext">
+                <h1 id="ros2h1">Ros2</h1>
+                <h2 id="description">Website to control a Ros2 robot</h2>
+            </div>
+            <div id="systeminfo">
+                <h2 id="ip">172.17.130.208</h2>
+                <h3 id="connected">Connected</h3>
+                <div id="battery">
+                    <p id="batterypercentage">80%</p>
+                </div>
+            </div>
+        </div>
+        <table id="motordata">
+            <tbody id="motordatabody">
+                <tr id="motordatatr">
+                    <th id="motor1spd">Motor 1 Speed</th>
+                    <th id="motor2spd">Motor 2 Speed</th>
+                    <th id="motor1encoder">Motor 1 Encoder</th>
+                    <th id="motor2encoder">Motor 2 Encoder</th>
+                </tr>
+            </tbody>
+        </table>
+        <div id="stopdiv">
+            <button id="stopbutton">STOP</button>
+        </div>
+        <table id="controls">
+            <tbody id="controlstbody">
+                <tr id="controlstr1">
+                    <th id="pwn">
+                        <div id="pwmdiv">
+                            <div id="pwminputs">
+                                <input id="pwminput1" placeholder="Motor1 PWM">
+                                <input id="pwminput2" placeholder="Motor2 PWM">
+                            </div>
+                            <button id="pwmbutton">PWM</button>
+                        </div>
+                    </th>
+                    <th id="spd">
+                        <div id="spddiv">
+                            <div id="spdinputs">
+                                <input id="spdinput1" placeholder="Motor1 SPD">
+                                <input id="spdinput2" placeholder="Motor2 SPD">
+                            </div>
+                            <button id="spdbutton">SPEED</button>
+                        </div>
+                    </th>
+                </tr>
+                <tr id="controlstr2">
+                    <th id="pid">
+                        <div id="piddiv">
+                            <div id="pidinputs">
+                                <input id="p" placeholder="P">
+                                <input id="i" placeholder="I">
+                                <input id="d" placeholder="D">
+                            </div>
+                            <button id="pidbutton">PID</button>
+                        </div>
+                    </th>
+                    <th id="cmd_vel">
+                        <div id="cmd_veldiv">
+                            <div id="cmd_velinputs">
+                                <input id="linear" placeholder="Linear">
+                                <input id="angular" placeholder="Angular">
+                            </div>
+                            <button id="cmd_velbutton">CMD_VEL</button>
+                        </div>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
