@@ -80,7 +80,7 @@ function publishPID(p, i, d) {
 
 function publishPWM(motor1, motor2) {
   const message = {
-    data: `PWM;${motor1};${motor2};`,
+    data: `PWM;${motor1};${-motor2};`,
   };
 
   console.log("Publishing PWM:", message.data);
@@ -91,7 +91,7 @@ function publishPWM(motor1, motor2) {
 
 function publishSpeed(motor1, motor2) {
   const message = {
-    data: `SPD;${motor1};${motor2};`,
+    data: `SPD;${motor1};${-motor2};`,
   };
 
   console.log("Publishing SPD:", message.data);
