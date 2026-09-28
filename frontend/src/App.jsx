@@ -17,7 +17,10 @@ const App = () => {
     const socket = new WebSocket('ws://localhost:3001')
     socket.onopen = () => {
       console.log('Connected to Node.js.')
-      document.getElementById('connected').textContent = 'Connected to Node.js'
+      let connected = document.getElementById('connected')
+      connected.textContent = 'Connected to Node.js'
+      connected.classList.remove("connectedFalse")
+      connected.classList.add("connectedTrue")
     }
     socket.onmessage = (e) => {
       const message = JSON.parse(e.data)
@@ -25,7 +28,10 @@ const App = () => {
     }
     socket.onclose = () => {
       console.log('Disconnected from Node.js')
-      document.getElementById('connected').textContent = 'Not connected to Node.js'
+      let connected = document.getElementById('connected')
+      connected.textContent = 'Not connected to Node.js'
+      connected.classList.remove("connectedTrue")
+      connected.classList.add("connectedFalse")
     }
     wsRef.current = socket    
     return () => socket.close()
@@ -52,7 +58,7 @@ const App = () => {
             </div>
             <div id="systeminfo">
                 <h2 id="ip">172.17.130.208</h2>
-                <h3 id="connected">Not Connected</h3>
+                <h3 id="connected" class="connectedFalse">Not Connected</h3>
                 <p id="batterypercentage">80%</p>
             </div>
         </div>
