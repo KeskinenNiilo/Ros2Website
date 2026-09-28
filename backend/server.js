@@ -189,34 +189,47 @@ motorData.subscribe((message) => {
   }
 });
 
-let voltageHistory = [];
 let isCharging = false;
+let voltHistory = [];
+
+const SAMPLE_WINDOW_MS = 2 * 60 * 1000
+const PLUG_IN_JUMP_VOLTS = 0.04;
+const SUST_RISE_VOLTS = 0.03;
+const DROP_TRESHOLD = -0.015;
 
 // battery sub log
 batteryData.subscribe((message) => {
   const currentVoltage = message.data;
   const now = Date.now();
 
-  voltageHistory.push({voltage: currentVoltage, time: now});
-  voltageHistory = voltageHistory.filter((entry) => now - entry.time <= 10000);
-
-  if (voltageHistory.length > 2) {
-    const oldest = voltageHistory[0];
-    const voltageChange = currentVoltage - oldest.voltage;
-    const timeChangeSeconds = (now - oldest.time) / 1000;
-
-    if (voltageChange / timeChangeSeconds > 0.005) {
-      isCharging = true;
-    } else if (voltageChange / timeChangeSeconds < -0.002) {
-      isCharging = false;
-    }
-  }
-
   const MIN_VOLTAGE = 10.5;
   const MAX_VOLTAGE = 12.6;
 
   let percentage = Math.round(((currentVoltage - MIN_VOLTAGE) / (MAX_VOLTAGE - MIN_VOLTAGE)) * 100);
   percentage = Math.max(0, Math.min(100, percentage));
+
+  //add a sample and purge readings older than 2 min.
+  voltHistory.push({ time: now, voltage: currentVoltage });
+  while (voltHistory.length > 0 && (now - voltHistory[0].time) > SAMPLE_WINDOW_MS) {
+    voltHistory.shift();
+  }
+
+  //check isCharging
+  const prevReading = voltHistory.length > 1 ? voltHistory[voltHistory.length -2].voltage : currentVoltage;
+  const oldestReading = voltHistory[0].voltage;
+
+  const immediateDelta = currentVoltage - prevReading;
+  const windowDelta = currentVoltage - oldestReading;
+
+  if (!isCharging) {
+    if (immediateDelta >= PLUG_IN_JUMP_VOLTS || (voltHistory.length >= 6 && windowDelta >= SUST_RISE_VOLTS)) {
+      isCharging = true
+    }
+  }else{
+    if (windowDelta <= DROP_TRESHOLD || immediateDelta < -0.01) {
+      isCharging = false;
+    }
+  }
 
   console.log(`Voltage: ${currentVoltage.toFixed(2)}V | Battery: ${percentage}% | Charging: ${isCharging}`);
 });
