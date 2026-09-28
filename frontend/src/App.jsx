@@ -12,6 +12,8 @@ const App = () => {
     p: "", i: "", d: "",
     linear: "", angular: "",
   })
+  const [batteryPercentage, setBatteryPercentage] = useState("-")
+
 
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:3001')
@@ -25,6 +27,14 @@ const App = () => {
     socket.onmessage = (e) => {
       const message = JSON.parse(e.data)
       if (message.type === 'motor_data') setMotors(message.data)
+
+      if (message.type === 'battery_data') {
+        if(message.isCharging === 'true') {
+             setBatteryPercentage(`🔌 ${message.data}`)
+        }else{
+            setBatteryPercentage(message.data)
+        }
+      } 
     }
     socket.onclose = () => {
       console.log('Disconnected from Node.js')
@@ -59,7 +69,7 @@ const App = () => {
             <div id="systeminfo">
                 <h2 id="ip">172.17.130.208</h2>
                 <h3 id="connected" class="connectedFalse">Not Connected</h3>
-                <p id="batterypercentage">80%</p>
+                <p id="batterypercentage">{batteryPercentage}%</p>
             </div>
         </div>
         <table id="motordata">

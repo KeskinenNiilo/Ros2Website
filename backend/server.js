@@ -232,4 +232,18 @@ batteryData.subscribe((message) => {
   }
 
   console.log(`Voltage: ${currentVoltage.toFixed(2)}V | Battery: ${percentage}% | Charging: ${isCharging}`);
+
+  if (
+    wsocket &&
+    wsocket.readyState === WebSocket.OPEN
+  ) {
+    wsocket.send(
+      JSON.stringify({
+        type: "battery_data",
+        data: percentage,
+        isCharging: isCharging
+      })
+    );
+  }
+
 });
