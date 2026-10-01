@@ -1,21 +1,44 @@
 import * as ROSLIB from "roslib";
 import { WebSocket, WebSocketServer } from "ws";
 
+
 global.WebSocket = WebSocket;
 
-const ros = new ROSLIB.Ros({
-  url: "ws://172.17.130.208:9090",
-});
 
-ros.on("connection", () => {
-  console.log("Connected to ROS");
-});
-ros.on("error", (error) => {
-  console.error("ROS error:", error);
-});
-ros.on("close", () => {
-  console.log("ROS connection closed");
-});
+let ros = null;
+
+
+function connectToRos(targetUrl) {
+  if (ros) ros.close();
+
+  ros = new ROSLIB.Ros({ url: targetUrl });
+
+  ros.on("connection", () => {
+    console.log("Connected to ROS");
+    // Recreate/re-bind topics after connection
+    motorCommand.ros = ros;
+    cmdVel.ros = ros;
+    motorData.ros = ros;
+    batteryData.ros = ros;
+  });
+}
+
+
+  console.log(`Attempting connection to: ${targetUrl}`);
+  ros = new ROSLIB.Ros({ url: targetUrl });
+
+
+  ros.on("connection", () => console.log("Connected to ROS"));
+  ros.on("error", (error) => console.error("ROS error:", error));
+  ros.on("close", () => console.log("ROS connection closed"));
+
+
+  motorCommand.ros = ros;
+  cmdVel.ros = ros;
+  motorData.ros = ros;
+  batteryData.ros = ros;
+}
+
 
 const motorCommand = new ROSLIB.Topic({
   ros,
@@ -23,11 +46,13 @@ const motorCommand = new ROSLIB.Topic({
   messageType: "std_msgs/msg/String",
 });
 
+
 const cmdVel = new ROSLIB.Topic({
   ros,
   name: "/cmd_vel",
   messageType: "geometry_msgs/msg/Twist",
 });
+
 
 const motorData = new ROSLIB.Topic({
   ros,
@@ -35,37 +60,52 @@ const motorData = new ROSLIB.Topic({
   messageType: "motordriver_msgs/msg/MotordriverMessage",
 });
 
+
 // Battery topic
 const batteryData = new ROSLIB.Topic({
   ros,
   name: "/battery_voltage",
   messageType: "std_msgs/msg/Float32",
 })
+connectToRos("ws://172.17.130.208:9090");
+
 
 const wss = new WebSocketServer({
   port: 3001,
 });
 
+
 let wsocket = null;
+
 
 wss.on("connection", (socket) => {
   console.log("React client connected");
 
+
   wsocket = socket;
+
 
   socket.on("close", () => {
     if (wsocket === socket) {
       wsocket = null;
     }
 
+
     console.log("React client disconnected");
   });
+
 
   socket.on("message", (rawMessage) => {
     try {
       const message = JSON.parse(rawMessage.toString());
-
       console.log("Received from React:", message);
+
+
+      if (message.type === "connect_ros") {
+        connectToRos(message.data.url);
+        return;
+      }
+
 
       handleCommand(message);
     } catch (error) {
@@ -74,15 +114,20 @@ wss.on("connection", (socket) => {
   });
 });
 
+
 function publishPID(p, i, d) {
   const message = {
     data: `PID;${p};${i};${d};`,
   };
 
+
   console.log("Publishing PID:", message.data);
+
 
   motorCommand.publish(message);
 }
+
+
 
 
 function publishPWM(motor1, motor2) {
@@ -90,10 +135,14 @@ function publishPWM(motor1, motor2) {
     data: `PWM;${motor1};${-motor2};`,
   };
 
+
   console.log("Publishing PWM:", message.data);
+
 
   motorCommand.publish(message);
 }
+
+
 
 
 function publishSpeed(motor1, motor2) {
@@ -101,10 +150,14 @@ function publishSpeed(motor1, motor2) {
     data: `SPD;${motor1};${-motor2};`,
   };
 
+
   console.log("Publishing SPD:", message.data);
+
 
   motorCommand.publish(message);
 }
+
+
 
 
 function publishCmdVel(linear, angular) {
@@ -115,6 +168,7 @@ function publishCmdVel(linear, angular) {
       z: 0.0,
     },
 
+
     angular: {
       x: 0.0,
       y: 0.0,
@@ -122,16 +176,20 @@ function publishCmdVel(linear, angular) {
     },
   };
 
+
   console.log(
     "Publishing cmd_vel:",
     message
   );
 
+
   cmdVel.publish(message);
 }
 
+
 function handleCommand(message) {
   switch (message.type) {
+
 
     case "pwm":
       publishPWM(
@@ -140,12 +198,14 @@ function handleCommand(message) {
       );
       break;
 
+
     case "speed":
       publishSpeed(
         message.data.motor1,
         message.data.motor2
       );
       break;
+
 
     case "pid":
       publishPID(
@@ -155,6 +215,7 @@ function handleCommand(message) {
       );
       break;
 
+
     case "cmd_vel":
       publishCmdVel(
         message.data.linear,
@@ -162,12 +223,15 @@ function handleCommand(message) {
       );
       break;
 
+
     default:
       console.error("Unknown command:", message.type);
   }
 }
 
+
 motorData.subscribe((message) => {
+
 
   const data = {
     speed1: message.speed1,
@@ -175,6 +239,7 @@ motorData.subscribe((message) => {
     encoder1: message.encoder1,
     encoder2: message.encoder2,
   };
+
 
   if (
     wsocket &&
@@ -189,24 +254,30 @@ motorData.subscribe((message) => {
   }
 });
 
+
 let isCharging = false;
 let voltHistory = [];
+
 
 const SAMPLE_WINDOW_MS = 2 * 60 * 1000
 const PLUG_IN_JUMP_VOLTS = 0.04;
 const SUST_RISE_VOLTS = 0.03;
 const DROP_TRESHOLD = -0.015;
 
+
 // battery sub log
 batteryData.subscribe((message) => {
   const currentVoltage = message.data;
   const now = Date.now();
 
+
   const MIN_VOLTAGE = 10.5;
   const MAX_VOLTAGE = 12.6;
 
+
   let percentage = Math.round(((currentVoltage - MIN_VOLTAGE) / (MAX_VOLTAGE - MIN_VOLTAGE)) * 100);
   percentage = Math.max(0, Math.min(100, percentage));
+
 
   //add a sample and purge readings older than 2 min.
   voltHistory.push({ time: now, voltage: currentVoltage });
@@ -214,12 +285,15 @@ batteryData.subscribe((message) => {
     voltHistory.shift();
   }
 
+
   //check isCharging
   const prevReading = voltHistory.length > 1 ? voltHistory[voltHistory.length -2].voltage : currentVoltage;
   const oldestReading = voltHistory[0].voltage;
 
+
   const immediateDelta = currentVoltage - prevReading;
   const windowDelta = currentVoltage - oldestReading;
+
 
   if (!isCharging) {
     if (immediateDelta >= PLUG_IN_JUMP_VOLTS || (voltHistory.length >= 6 && windowDelta >= SUST_RISE_VOLTS)) {
@@ -231,7 +305,9 @@ batteryData.subscribe((message) => {
     }
   }
 
+
   console.log(`Voltage: ${currentVoltage.toFixed(2)}V | Battery: ${percentage}% | Charging: ${isCharging}`);
+
 
   if (
     wsocket &&
@@ -246,4 +322,8 @@ batteryData.subscribe((message) => {
     );
   }
 
+
 });
+
+
+

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import './App.css'
 
+
 const App = () => {
   const wsRef = useRef(null)
   const [motors, setMotors] = useState({
@@ -13,6 +14,9 @@ const App = () => {
     linear: "", angular: "",
   })
   const [batteryPercentage, setBatteryPercentage] = useState("-")
+
+
+  const [rosIpInput, setRosIpInput] = useState("172.17.130.208")
 
 
   useEffect(() => {
@@ -28,13 +32,14 @@ const App = () => {
       const message = JSON.parse(e.data)
       if (message.type === 'motor_data') setMotors(message.data)
 
+
       if (message.type === 'battery_data') {
         if(message.isCharging === 'true') {
              setBatteryPercentage(`🔌 ${message.data}`)
         }else{
             setBatteryPercentage(message.data)
         }
-      } 
+      }
     }
     socket.onclose = () => {
       console.log('Disconnected from Node.js')
@@ -47,18 +52,23 @@ const App = () => {
     return () => socket.close()
   }, [])
 
+
   const updateInputs = (name, value) => {
     setInputs((previous) => ({
       ...previous, [name]: value
     }))
   }
 
+
   const sendCommand = (command, data) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({ type: command, data }))
     }
   }
-
+ 
+const handleConnectRos = () => {
+  sendCommand("connect_ros", { url: `ws://${rosIpInput}:9090` })
+}
   return (
     <div>
         <div id="headerdiv">
@@ -66,9 +76,24 @@ const App = () => {
                 <h1 id="ros2h1">Ros2</h1>
                 <h2 id="description">Website to control a Ros2 robot</h2>
             </div>
-            <div id="systeminfo">
-                <h2 id="ip">172.17.130.208</h2>
-                <h3 id="connected" class="connectedFalse">Not Connected</h3>
+    <div id="systeminfo">
+        {/* Input field to type the ROS IP bridge target */}
+        <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+            <span style={{ color: '#aaa', marginRight: '4px', fontFamily: 'monospace' }}>ws://</span>
+            <input
+            type="text"
+            value={rosIpInput}
+            onChange={(e) => setRosIpInput(e.target.value)}
+            placeholder="172.17.130.208"
+            style={{ padding: '4px', marginRight: '5px' }}
+            />
+            <span style={{ color: '#aaa', marginRight: '5px', fontFamily: 'monospace' }}>:9090</span>
+            <button onClick={handleConnectRos}>Connect</button>
+        </div>
+
+
+               
+                <h3 id="connected" className="connectedFalse">Not Connected</h3>
                 <p id="batterypercentage">{batteryPercentage}%</p>
             </div>
         </div>
@@ -171,4 +196,6 @@ const App = () => {
   )
 }
 
+
 export default App
+
