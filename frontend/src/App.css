@@ -12,6 +12,12 @@ body {
     color: red;
 }
 
+.ipConnectedTrue {
+    color: greenyellow;
+}
+.ipConnectedFalse {
+    color: red;
+}
 
 /** HEADER DIV */
 

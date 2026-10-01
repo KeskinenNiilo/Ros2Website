@@ -17,6 +17,8 @@ const App = () => {
 
 
   const [rosIpInput, setRosIpInput] = useState("172.17.130.208")
+  const [rosConnected, setRosConnected] = useState(false)
+  const [connectedRosUrl, setConnectedRosUrl] = useState("")
 
 
   useEffect(() => {
@@ -40,6 +42,11 @@ const App = () => {
             setBatteryPercentage(message.data)
         }
       }
+
+      if (message.type === "ros_status") {
+        setRosConnected(message.connected)
+        if (message.url) setConnectedRosUrl(message.url)
+      } 
     }
     socket.onclose = () => {
       console.log('Disconnected from Node.js')
@@ -67,8 +74,10 @@ const App = () => {
   }
  
 const handleConnectRos = () => {
+  setConnectedRosUrl(rosIpInput)
   sendCommand("connect_ros", { url: `ws://${rosIpInput}:9090` })
 }
+    
   return (
     <div>
         <div id="headerdiv">
@@ -89,6 +98,12 @@ const handleConnectRos = () => {
             />
             <span style={{ color: '#aaa', marginRight: '5px', fontFamily: 'monospace' }}>:9090</span>
             <button onClick={handleConnectRos}>Connect</button>
+            <h3
+        id="ipConnected"
+        className={rosConnected ? "ipConnectedTrue" : "ipConnectedFalse"}
+        >
+        {rosConnected ? `Connected to ${connectedRosUrl.replace(/^ws:\/\//, "").replace(/:9090$/, "")}`: "Not connected to ROS"}
+        </h3>
         </div>
 
 
