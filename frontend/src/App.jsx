@@ -86,31 +86,27 @@ const handleConnectRos = () => {
                 <h2 id="description">Website to control a Ros2 robot</h2>
             </div>
     <div id="systeminfo">
-        {/* Input field to type the ROS IP bridge target */}
-        <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ color: '#aaa', marginRight: '4px', fontFamily: 'monospace' }}>ws://</span>
+        <div id="ipDiv">
+            <span id="ipSpan">ws://</span>
             <input
+            id="ipInput"
             type="text"
             value={rosIpInput}
             onChange={(e) => setRosIpInput(e.target.value)}
             placeholder="172.17.130.208"
-            style={{ padding: '4px', marginRight: '5px' }}
             />
-            <span style={{ color: '#aaa', marginRight: '5px', fontFamily: 'monospace' }}>:9090</span>
-            <button onClick={handleConnectRos}>Connect</button>
+            <span id="ipSpan2">:9090</span>
+            <button id="ipButton" onClick={handleConnectRos}>Connect</button>
             <h3
         id="ipConnected"
         className={rosConnected ? "ipConnectedTrue" : "ipConnectedFalse"}
         >
         {rosConnected ? `Connected to ${connectedRosUrl.replace(/^ws:\/\//, "").replace(/:9090$/, "")}`: "Not connected to ROS"}
         </h3>
+        </div>   
+            <h3 id="connected" className="connectedFalse">Not Connected</h3>
+            <p id="batterypercentage">{batteryPercentage}%</p>
         </div>
-
-
-               
-                <h3 id="connected" className="connectedFalse">Not Connected</h3>
-                <p id="batterypercentage">{batteryPercentage}%</p>
-            </div>
         </div>
         <table id="motordata">
             <tbody id="motordatabody">

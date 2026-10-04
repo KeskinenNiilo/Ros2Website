@@ -19,6 +19,38 @@ body {
     color: red;
 }
 
+#ipDiv {
+    display: flex;
+    align-items: center;
+}
+
+#ipInput { 
+    padding: 8px;
+    border-radius: 8px;
+    background-color: grey;
+    color: white;
+}
+
+#ipSpan2 {
+    color: '#aaa'; 
+    margin-right: '5px';
+}
+
+#ipButton {
+    background-color: rgb(87, 117, 87);
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 900;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+#ipInput::placeholder {
+    color:rgb(185, 185, 185);
+}
+
 /** HEADER DIV */
 
 #headerdiv {
