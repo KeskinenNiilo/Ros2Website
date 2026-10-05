@@ -25,15 +25,10 @@ body {
 }
 
 #ipInput { 
-    padding: 8px;
+    padding: 4px;
     border-radius: 8px;
     background-color: grey;
     color: white;
-}
-
-#ipSpan2 {
-    color: '#aaa'; 
-    margin-right: '5px';
 }
 
 #ipButton {
